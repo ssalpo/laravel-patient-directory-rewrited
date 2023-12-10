@@ -33,11 +33,11 @@ class AuthController extends Controller
     )]
     public function login(LoginRequest $request): JsonResponse
     {
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('nickname', $request->nickname)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['Некорректные данные переданы.'],
+                'nickname' => ['Некорректные данные переданы.'],
             ]);
         }
 

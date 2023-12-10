@@ -13,6 +13,9 @@ class UserResource
     #[OAT\Property(title: 'Имя', example: 'Санжар')]
     public string $name;
 
+    #[OAT\Property(title: 'Ник', example: 'ssalpo')]
+    public string $nickname;
+
     #[OAT\Property(title: 'Email', example: 'ssalpo@ya.ru')]
     public string $email;
 

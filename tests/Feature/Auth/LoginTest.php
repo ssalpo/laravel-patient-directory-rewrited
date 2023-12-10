@@ -15,7 +15,7 @@ class LoginTest extends TestCase
     {
         $user = UserHelper::makeUser();
 
-        $condition = ['email' => $user->email, 'password' => UserHelper::defaultPassword()];
+        $condition = ['nickname' => $user->nickname, 'password' => UserHelper::defaultPassword()];
 
         $response = $this->postJson('/api/auth/login', $condition);
 
@@ -27,6 +27,7 @@ class LoginTest extends TestCase
                 'user' => [
                     'id',
                     'name',
+                    'nickname',
                     'email',
                 ],
                 'token',
@@ -38,7 +39,7 @@ class LoginTest extends TestCase
     {
         $user = UserHelper::makeInactiveUser();
 
-        $condition = ['email' => $user->email, 'password' => UserHelper::defaultPassword()];
+        $condition = ['nickname' => $user->nickname, 'password' => UserHelper::defaultPassword()];
 
         $response = $this->postJson('/api/auth/login', $condition);
 
@@ -51,14 +52,14 @@ class LoginTest extends TestCase
         $response = $this->postJson('/api/auth/login', []);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonValidationErrors(['email', 'password']);
+        $response->assertJsonValidationErrors(['nickname', 'password']);
     }
 
-    public function test_user_cannot_auth_with_incorrect_email(): void
+    public function test_user_cannot_auth_with_incorrect_nickname(): void
     {
-        $response = $this->postJson('/api/auth/login', ['email' => 'wrongEmail', 'password' => 'somepassword']);
+        $response = $this->postJson('/api/auth/login', ['nickname' => 'ssalpomishevich', 'password' => 'somepassword']);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertJsonValidationErrors('email');
+        $response->assertJsonValidationErrors('nickname');
     }
 }

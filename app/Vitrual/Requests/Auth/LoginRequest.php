@@ -6,12 +6,12 @@ use OpenApi\Attributes as OAT;
 
 #[OAT\Schema(
     title: 'Login Request',
-    required: ['email', 'password']
+    required: ['nickname', 'password']
 )]
 class LoginRequest
 {
-    #[OAT\Property(title: 'Email', example: 'ssalpo@ya.ru')]
-    public string $email;
+    #[OAT\Property(title: 'Ник', example: 'ssalpo')]
+    public string $nickname;
 
     #[OAT\Property(title: 'Пароль', example: 'secret')]
     public string $password;
