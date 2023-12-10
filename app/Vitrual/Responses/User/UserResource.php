@@ -15,4 +15,7 @@ class UserResource
 
     #[OAT\Property(title: 'Email', example: 'ssalpo@ya.ru')]
     public string $email;
+
+    #[OAT\Property(title: 'Активность пользователя', default: true)]
+    public bool $is_active;
 }

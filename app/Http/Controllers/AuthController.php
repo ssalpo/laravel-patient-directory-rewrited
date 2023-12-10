@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\LoginData;
-use App\Data\UserData;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -31,11 +31,11 @@ class AuthController extends Controller
             new OAT\Response(response: 422, description: 'Ошибка валидации'),
         ]
     )]
-    public function login(LoginData $data): JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
-        $user = User::where('email', $data->email)->first();
+        $user = User::where('email', $request->email)->first();
 
-        if (! $user || ! Hash::check($data->password, $user->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['Некорректные данные переданы.'],
             ]);
@@ -48,7 +48,7 @@ class AuthController extends Controller
         }
 
         return $this->sendSuccess([
-            'user' => UserData::from($user),
+            'user' => UserResource::make($user),
             'token' => $user->createToken('', ['*'], now()->addYear())->plainTextToken,
         ]);
     }
