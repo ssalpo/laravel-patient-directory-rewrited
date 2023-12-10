@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Vitrual\Responses\Wrappers;
+namespace App\Virtual\Responses\Wrappers;
 
-use App\Vitrual\Responses\Auth\AuthTokenResponse;
+use App\Virtual\Responses\Auth\AuthTokenResponse;
 use OpenApi\Attributes as OAT;
 
 #[OAT\Schema(title: 'Auth Login Response Wrapper')]

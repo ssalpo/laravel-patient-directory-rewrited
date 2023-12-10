@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
                 $exception->original['errors'] ?? [],
                 config('app.debug') ? [
                     'code' => $e->getCode(),
-                    'trace' => $e->getTrace(),
+                    // 'trace' => $e->getTrace(),
                 ] : []
             );
         }

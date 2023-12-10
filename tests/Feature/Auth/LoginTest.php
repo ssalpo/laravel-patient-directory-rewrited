@@ -11,7 +11,7 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_can_successful_login(): void
+    public function testLogin(): void
     {
         $user = UserHelper::makeUser();
 
@@ -35,7 +35,7 @@ class LoginTest extends TestCase
         ]);
     }
 
-    public function test_inactive_user_cannot_login(): void
+    public function testLoginInactiveUser(): void
     {
         $user = UserHelper::makeInactiveUser();
 
@@ -47,7 +47,7 @@ class LoginTest extends TestCase
         $response->assertJsonValidationErrors('inactive');
     }
 
-    public function test_user_cannot_login_without_incorrect_data(): void
+    public function testLoginValidation(): void
     {
         $response = $this->postJson('/api/auth/login', []);
 
@@ -55,7 +55,7 @@ class LoginTest extends TestCase
         $response->assertJsonValidationErrors(['nickname', 'password']);
     }
 
-    public function test_user_cannot_auth_with_incorrect_nickname(): void
+    public function testLoginWithIncorrectNickname(): void
     {
         $response = $this->postJson('/api/auth/login', ['nickname' => 'ssalpomishevich', 'password' => 'somepassword']);
 

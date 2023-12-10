@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Vitrual\Requests\Auth;
+namespace App\Virtual\Requests\Auth;
 
 use OpenApi\Attributes as OAT;
 

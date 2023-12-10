@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Vitrual\Responses\User;
+namespace App\Virtual\Responses\User;
 
 use OpenApi\Attributes as OAT;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Vitrual\Responses\Auth;
+namespace App\Virtual\Responses\Auth;
 
-use App\Vitrual\Responses\User\UserResource;
+use App\Virtual\Responses\User\UserResource;
 use OpenApi\Attributes as OAT;
 
 #[OAT\Schema(title: 'Auth Token Response')]

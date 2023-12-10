@@ -3,9 +3,15 @@
 namespace Tests\Helpers;
 
 use App\Models\User;
+use Laravel\Sanctum\Sanctum;
 
 class UserHelper
 {
+    public static function auth()
+    {
+        Sanctum::actingAs(self::makeUser(), ['*'], 'api');
+    }
+
     public static function makeUser(): User
     {
         return User::factory()->create();
