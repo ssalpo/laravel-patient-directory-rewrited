@@ -1,0 +1,14 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "prepare-huski": "husky install"
+    },
+    "lint-staged": {
+        "**/*.php": "./vendor/bin/pint --preset laravel"
+    },
+    "devDependencies": {
+        "husky": "^8.0.0",
+        "lint-staged": "^1c5.0.1"
+    }
+}
