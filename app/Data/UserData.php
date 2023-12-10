@@ -9,7 +9,8 @@ class UserData extends Data
     public function __construct(
         public ?string $id,
         public string $name,
-        public string $email
+        public string $email,
+        public bool $is_active,
     ) {
     }
 }

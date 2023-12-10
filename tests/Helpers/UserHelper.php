@@ -11,6 +11,13 @@ class UserHelper
         return User::factory()->create();
     }
 
+    public static function makeInactiveUser(): User
+    {
+        return User::factory()->create([
+            'is_active' => false,
+        ]);
+    }
+
     public static function defaultPassword(): string
     {
         return 'secret';

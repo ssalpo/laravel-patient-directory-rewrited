@@ -34,6 +34,18 @@ class LoginTest extends TestCase
         ]);
     }
 
+    public function test_inactive_user_cannot_login(): void
+    {
+        $user = UserHelper::makeInactiveUser();
+
+        $condition = ['email' => $user->email, 'password' => UserHelper::defaultPassword()];
+
+        $response = $this->postJson('/api/auth/login', $condition);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonValidationErrors('inactive');
+    }
+
     public function test_user_cannot_login_without_incorrect_data(): void
     {
         $response = $this->postJson('/api/auth/login', []);

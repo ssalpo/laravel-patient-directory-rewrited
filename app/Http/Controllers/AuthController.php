@@ -41,6 +41,12 @@ class AuthController extends Controller
             ]);
         }
 
+        if (! $user->is_active) {
+            throw ValidationException::withMessages([
+                'inactive' => ['Пользователь не активен.'],
+            ]);
+        }
+
         return $this->sendSuccess([
             'user' => UserData::from($user),
             'token' => $user->createToken('', ['*'], now()->addYear())->plainTextToken,
