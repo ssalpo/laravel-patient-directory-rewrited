@@ -4,13 +4,13 @@ namespace App\Virtual\Responses\Wrappers;
 
 use OpenApi\Attributes as OAT;
 
-#[OAT\Schema(title: 'Doctor Response Wrapper')]
-class DoctorResponseWrapper
+#[OAT\Schema(title: 'Medical Clinic Response Wrapper')]
+class MedicalClinicResponseWrapper
 {
     #[
         OAT\Property(
             title: 'Data',
-            items: new OAT\Items(ref: '#/components/schemas/DoctorResponse')
+            items: new OAT\Items(ref: '#/components/schemas/MedicalClinicResponse')
         )
     ]
     private array $data;

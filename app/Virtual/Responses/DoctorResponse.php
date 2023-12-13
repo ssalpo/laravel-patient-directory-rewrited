@@ -5,7 +5,7 @@ namespace App\Virtual\Responses;
 use OpenApi\Attributes as OAT;
 
 #[OAT\Schema(title: 'Doctor Response')]
-class DoctorResource
+class DoctorResponse
 {
     #[OAT\Property(title: 'ID', example: 556)]
     private int $id;

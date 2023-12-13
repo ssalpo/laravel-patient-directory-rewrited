@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\MedicalClinicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +26,7 @@ Route::post('auth/login', [AuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
 
     Route::apiResource('doctors', DoctorController::class);
+
+    Route::apiResource('medical-clinics', MedicalClinicController::class);
 
 });

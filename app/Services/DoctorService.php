@@ -26,6 +26,9 @@ class DoctorService
         return $doctor;
     }
 
+    /**
+     * Удаляет доктора по идентификатору
+     */
     public function destroy(int $id): bool
     {
         return Doctor::findOrFail($id)->delete();

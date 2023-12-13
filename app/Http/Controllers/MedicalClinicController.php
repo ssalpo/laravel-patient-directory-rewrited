@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DoctorRequest;
-use App\Http\Resources\DoctorResource;
-use App\Models\Doctor;
-use App\Services\DoctorService;
+use App\Http\Requests\MedicalClinicRequest;
+use App\Http\Resources\MedicalClinicResource;
+use App\Models\MedicalClinic;
+use App\Services\MedicalClinicService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use OpenApi\Attributes as OAT;
 
-class DoctorController extends Controller
+class MedicalClinicController extends Controller
 {
     public function __construct(
-        public readonly DoctorService $doctorService
+        public readonly MedicalClinicService $medicalClinicService
     ) {
     }
 
     #[
         OAT\Get(
-            path: '/doctors',
-            summary: 'Возвращает список докторов',
+            path: '/medical-clinics',
+            summary: 'Возвращает список медицинских учреждений',
             security: [['bearerAuth' => []]],
-            tags: ['Доктор'],
+            tags: ['Медицинское учреждение'],
             responses: [
                 new OAT\Response(
                     response: 200,
                     description: 'OK',
-                    content: new OAT\JsonContent(ref: '#/components/schemas/DoctorResponseWrapper')
+                    content: new OAT\JsonContent(ref: '#/components/schemas/MedicalClinicResponseWrapper')
                 ),
                 new OAT\Response(ref: '#/components/responses/unauthenticated', response: 401),
             ],
@@ -35,38 +35,38 @@ class DoctorController extends Controller
     ]
     public function index(): AnonymousResourceCollection
     {
-        return DoctorResource::collection(
-            Doctor::paginate()
+        return MedicalClinicResource::collection(
+            MedicalClinic::paginate()
         );
     }
 
     #[
         OAT\Post(
-            path: '/doctors',
-            summary: 'Добавляет нового доктора',
+            path: '/medical-clinics',
+            summary: 'Добавляет новое учреждение',
             security: [['bearerAuth' => []]],
             requestBody: new OAT\RequestBody(
                 required: true,
                 content: new OAT\JsonContent(
-                    ref: '#/components/schemas/DoctorRequest'
+                    ref: '#/components/schemas/MedicalClinicRequest'
                 )
             ),
-            tags: ['Доктор'],
+            tags: ['Медицинское учреждение'],
             responses: [
                 new OAT\Response(
                     response: 201,
                     description: 'OK',
-                    content: new OAT\JsonContent(ref: '#/components/schemas/DoctorResponse')
+                    content: new OAT\JsonContent(ref: '#/components/schemas/MedicalClinicResponse')
                 ),
                 new OAT\Response(ref: '#/components/responses/validation', response: 422),
                 new OAT\Response(ref: '#/components/responses/unauthenticated', response: 401),
             ],
         )
     ]
-    public function store(DoctorRequest $request): DoctorResource
+    public function store(MedicalClinicRequest $request): MedicalClinicResource
     {
-        return DoctorResource::make(
-            $this->doctorService->store(
+        return MedicalClinicResource::make(
+            $this->medicalClinicService->store(
                 $request->validated()
             )
         );
@@ -74,21 +74,21 @@ class DoctorController extends Controller
 
     #[
         OAT\Put(
-            path: '/doctors/{doctor}',
-            summary: 'Изменяет данные доктора по идентификатору',
+            path: '/medicalClinics/{medicalClinic}',
+            summary: 'Изменяет данные мед. учреждения по идентификатору',
             security: [['bearerAuth' => []]],
             requestBody: new OAT\RequestBody(
                 required: true,
                 content: new OAT\JsonContent(
-                    ref: '#/components/schemas/DoctorRequest'
+                    ref: '#/components/schemas/MedicalClinicRequest'
                 )
             ),
-            tags: ['Доктор'],
+            tags: ['Медицинское учреждение'],
             responses: [
                 new OAT\Response(
                     response: 200,
                     description: 'OK',
-                    content: new OAT\JsonContent(ref: '#/components/schemas/DoctorResponse')
+                    content: new OAT\JsonContent(ref: '#/components/schemas/MedicalClinicResponse')
                 ),
                 new OAT\Response(ref: '#/components/responses/notFound', response: 404),
                 new OAT\Response(ref: '#/components/responses/validation', response: 422),
@@ -97,10 +97,10 @@ class DoctorController extends Controller
         ),
         OAT\Parameter(name: 'doctor', ref: '#/components/parameters/doctor')
     ]
-    public function update(DoctorRequest $request, int $id): DoctorResource
+    public function update(MedicalClinicRequest $request, int $id): MedicalClinicResource
     {
-        return DoctorResource::make(
-            $this->doctorService->update(
+        return MedicalClinicResource::make(
+            $this->medicalClinicService->update(
                 $id, $request->validated()
             )
         );
@@ -108,21 +108,21 @@ class DoctorController extends Controller
 
     #[
         OAT\Delete(
-            path: '/doctors/{doctor}',
-            summary: 'Удаляет доктора по идентификатору',
+            path: '/medicalClinics/{medicalClinic}',
+            summary: 'Удаляет мед. учреждение по идентификатору',
             security: [['bearerAuth' => []]],
-            tags: ['Доктор'],
+            tags: ['Медицинское учреждение'],
             responses: [
                 new OAT\Response(ref: '#/components/responses/noContent', response: 204),
                 new OAT\Response(ref: '#/components/responses/notFound', response: 404),
                 new OAT\Response(ref: '#/components/responses/unauthenticated', response: 401),
             ],
         ),
-        OAT\Parameter(name: 'doctor', ref: '#/components/parameters/doctor')
+        OAT\Parameter(name: 'medicalClinic', ref: '#/components/parameters/medicalClinic')
     ]
     public function destroy(int $id): Response
     {
-        $this->doctorService->destroy($id);
+        $this->medicalClinicService->destroy($id);
 
         return response()->noContent();
     }
